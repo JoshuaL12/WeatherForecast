@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Weather</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,  user-scalable=no">
+    </head>
+
+    <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.js"></script>
+        <div class="background">
+            <img src="images/sunnyBG.png" class="bg">
+            <div class ="card">
+                <div class="cardBG">
+                </div>
+                <div class = "search">
+                    <input type="text" placeholder="Enter city" spellcheck="false">
+                    <button><img src="images/search.png"></button>
+                </div>
+                <div class = "weather">
+                    <img src="" class="image">
+                    <h1 class="city"></h1>
+                    <div class = "data">
+                        <p class="temp"></p>
+                        <p class="description"></p> 
+                        <p class="humidity"></p>
+                    </div>
+                </div>
+                <div class ="forecast">
+                    <div class="row">
+                        <p class="threehrs"></p>
+                        <p class="threehrsw"></p>
+                    </div>
+                    <div class="row">
+                        <p class="sixhrs"></p>
+                        <p class="sixhrsw"></p>
+                    </div>
+                    <div class="row">
+                        <p class="ninehrs"></p>
+                        <p class="ninehrsw"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="WeatherCode.js" defer></script>
+
+        <script>
+            const searchBox = document.querySelector(".search input");
+            const searchButton = document.querySelector(".search button");
+            const imageIcon = document.querySelector(".image");
+            const backgroundImage = document.querySelector(".bg");
+            
+            searchButton.addEventListener("click", ()=>{
+                getWeather(searchBox.value);
+            })
+        </script>
+    </body>
+</html>
