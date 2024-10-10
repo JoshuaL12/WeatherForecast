@@ -1,9 +1,9 @@
 const apiLinkStart = "https://api.openweathermap.org/data/2.5/weather?q="
-const apiLinkEnd = "&units=metric&appid=0535ce365245782fe142ebad990d71b7"
+const apiLinkEnd = "&units=metric&appid=f56be2a520dda2b6f2e0047e4e08966f"
 const geoAPIStart = "https://api.openweathermap.org/geo/1.0/direct?q="
-const geoAPIEnd = "&limit=3&appid=0535ce365245782fe142ebad990d71b7"
+const geoAPIEnd = "&limit=3&appid=f56be2a520dda2b6f2e0047e4e08966f"
 const forecastAPIStart = "https://api.openweathermap.org/data/2.5/forecast?lat="
-const forecastAPIEnd = "&appid=0535ce365245782fe142ebad990d71b7&units=metric"
+const forecastAPIEnd = "&appid=f56be2a520dda2b6f2e0047e4e08966f&units=metric"
             
 function convert(input, value) {
     let time = moment(input, 'HH');
@@ -41,8 +41,15 @@ async function getWeather(city) {
 
     switch (data.weather[0].main) {
         case "Clear":
-            imageIcon.src = "images/clear.png";
-            backgroundImage.src = "images/sunnyBG.png";
+            const time = new Date();
+            var currentTime = convert(time.getHours(), 0);
+            if ((currentTime.substring(0, 2) >= 8 && currentTime.search("PM") != -1) || (currentTime.substring(0, 2) <= 6 && currentTime.search("AM") != -1)) {
+                backgroundImage.src = "images/nightBG.png";
+                imageIcon.src = "images/nightClear.png";
+            } else {
+                imageIcon.src = "images/clear.png";
+                backgroundImage.src = "images/sunnyBG.png";
+            }
             break;
         case "Rain":
             imageIcon.src = "images/rainy.png";
@@ -64,5 +71,13 @@ async function getWeather(city) {
             imageIcon.src = "images/snow.png";
             backgroundImage.src = "images/snowBG.png";
             break;
+    }
+
+    const time = new Date();
+    var currentTime = convert(time.getHours(), 0);
+
+    switch (currentTime) {
+        case currentTime.substring(0, 1) > 8 & currentTime.substring(2, 3) == "PM":
+            backgroundImage.src = "images/nightBG.png";
     }
 }
