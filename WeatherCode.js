@@ -1,9 +1,9 @@
 const apiLinkStart = "https://api.openweathermap.org/data/2.5/weather?q="
-const apiLinkEnd = "&units=metric&appid=f56be2a520dda2b6f2e0047e4e08966f"
+const apiLinkEnd = "&units=metric&appid=APIKEY"
 const geoAPIStart = "https://api.openweathermap.org/geo/1.0/direct?q="
-const geoAPIEnd = "&limit=3&appid=f56be2a520dda2b6f2e0047e4e08966f"
+const geoAPIEnd = "&limit=3&appid=APIKEY"
 const forecastAPIStart = "https://api.openweathermap.org/data/2.5/forecast?lat="
-const forecastAPIEnd = "&appid=f56be2a520dda2b6f2e0047e4e08966f&units=metric"
+const forecastAPIEnd = "&appid=APIKEY&units=metric"
             
 function convert(input, value) {
     let time = moment(input, 'HH');
