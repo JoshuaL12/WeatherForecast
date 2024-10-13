@@ -14,15 +14,12 @@ function convert(input, value) {
 async function getWeather(city) {
     const response = await fetch(apiLinkStart + city + apiLinkEnd);
     var data = await response.json();
-    console.log(data);
 
     const locationResponse = await fetch(geoAPIStart + city + geoAPIEnd)
     var locationData = await locationResponse.json();
-    console.log(locationData);
 
     const forecastResponse = await fetch(forecastAPIStart + locationData[0].lat + "&lon=" + locationData[0].lon + forecastAPIEnd)
     var forecastData = await forecastResponse.json();
-    console.log(forecastData);
 
     var threehrstime = convert(forecastData.list[0].dt_txt.substring(11, 13), 5);
     var sixhrstime = convert(forecastData.list[1].dt_txt.substring(11, 13), 5);
@@ -41,9 +38,10 @@ async function getWeather(city) {
 
     switch (data.weather[0].main) {
         case "Clear":
-            const time = new Date();
-            var currentTime = convert(time.getHours(), 0);
-            if ((currentTime.substring(0, 2) >= 8 && currentTime.search("PM") != -1) || (currentTime.substring(0, 2) <= 6 && currentTime.search("AM") != -1)) {
+            var timeData = await (await fetch("https://timeapi.io/api/time/current/coordinate?latitude=" + locationData[0].lat + "&longitude=" + locationData[0].lon)).json();
+            var currentTime = convert(timeData.hour, 0);
+            console.log(currentTime);
+            if ((currentTime.substring(0, 2) >= 8 && currentTime.substring(0, 2) < 12 && currentTime.search("PM") != -1) || (currentTime.substring(0, 2) <= 6 || currentTime.substring(0, 2) == 12 && currentTime.search("AM") != -1)) {
                 backgroundImage.src = "images/nightBG.png";
                 imageIcon.src = "images/nightClear.png";
             } else {
@@ -71,13 +69,5 @@ async function getWeather(city) {
             imageIcon.src = "images/snow.png";
             backgroundImage.src = "images/snowBG.png";
             break;
-    }
-
-    const time = new Date();
-    var currentTime = convert(time.getHours(), 0);
-
-    switch (currentTime) {
-        case currentTime.substring(0, 1) > 8 & currentTime.substring(2, 3) == "PM":
-            backgroundImage.src = "images/nightBG.png";
     }
 }
